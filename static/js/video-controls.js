@@ -10,6 +10,12 @@
  * Usage (programmatic):
  *   createVideoControls(containerEl, { fps: 20, autoplay: true });
  */
+var ICON_RESET    = '\u23EE\uFE0E'; // ⏮︎
+var ICON_STEP_BACK = '\u23EA\uFE0E'; // ⏪︎
+var ICON_PLAY      = '▶️'; // Use Emoji
+var ICON_PAUSE     = '⏸️'; // Use Emoji
+var ICON_STEP_FWD  = '\u23E9\uFE0E'; // ⏩︎
+
 function createVideoControls(container, opts) {
     opts = opts || {};
     const FPS = opts.fps || 20;
@@ -33,25 +39,25 @@ function createVideoControls(container, opts) {
     bar.style.cssText = 'display:flex;align-items:center;gap:0.6em;margin-top:0.5em;padding:0.5em 0.75em;background:' + (opts._isLightbox ? '#2a2a2a' : '#f5f5f5') + ';border-radius:0.4em;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:0.9em;';
 
     const resetBtn = document.createElement('button');
-    resetBtn.textContent = '⏮'; resetBtn.title = 'Reset to first frame'; resetBtn.style.cssText = btnStyle;
+    resetBtn.textContent = ICON_RESET; resetBtn.title = 'Reset to first frame'; resetBtn.style.cssText = btnStyle;
 
     const stepBackBtn = document.createElement('button');
-    stepBackBtn.innerHTML = '⏪︎'; stepBackBtn.title = 'Step back one frame; hold to slow play'; stepBackBtn.style.cssText = btnStyle;
+    stepBackBtn.textContent = ICON_STEP_BACK; stepBackBtn.title = 'Step back one frame; hold to slow play'; stepBackBtn.style.cssText = btnStyle;
 
     const playPauseBtn = document.createElement('button');
-    playPauseBtn.textContent = shouldAutoplay ? '⏸' : '⏵';
+    playPauseBtn.textContent = shouldAutoplay ? ICON_PAUSE : ICON_PLAY;
     playPauseBtn.title = shouldAutoplay ? 'Pause' : 'Play';
     playPauseBtn.style.cssText = playBtnStyle;
 
     const stepFwdBtn = document.createElement('button');
-    stepFwdBtn.innerHTML = '⏩︎'; stepFwdBtn.title = 'Step forward one frame; hold to slow play'; stepFwdBtn.style.cssText = btnStyle;
+    stepFwdBtn.textContent = ICON_STEP_FWD; stepFwdBtn.title = 'Step forward one frame; hold to slow play'; stepFwdBtn.style.cssText = btnStyle;
 
     const scrubber = document.createElement('input');
     scrubber.type = 'range'; scrubber.min = '0'; scrubber.max = '1000'; scrubber.value = '0';
-    scrubber.style.cssText = 'flex:1;cursor:pointer;accent-color:' + (opts._isLightbox ? '#aaa' : '#555') + ';';
+    scrubber.style.cssText = 'flex:1;min-width:0;cursor:pointer;accent-color:' + (opts._isLightbox ? '#aaa' : '#555') + ';';
 
     const timeDisplay = document.createElement('span');
-    timeDisplay.style.cssText = 'min-width:5.5em;text-align:right;color:' + (opts._isLightbox ? '#aaa' : '#666') + ';font-variant-numeric:tabular-nums;';
+    timeDisplay.style.cssText = 'flex-shrink:0;white-space:nowrap;text-align:right;color:' + (opts._isLightbox ? '#aaa' : '#666') + ';font-variant-numeric:tabular-nums;';
     timeDisplay.textContent = '0:00 / 0:00';
 
     bar.appendChild(resetBtn);
@@ -86,14 +92,14 @@ function createVideoControls(container, opts) {
 
     function pauseAll() {
         videos.forEach(function(v) { v.pause(); });
-        playPauseBtn.textContent = '⏵';
+        playPauseBtn.textContent = ICON_PLAY;
         playPauseBtn.title = 'Play';
         isPlaying = false;
     }
 
     function playAll() {
         videos.forEach(function(v) { v.play(); });
-        playPauseBtn.textContent = '⏸';
+        playPauseBtn.textContent = ICON_PAUSE;
         playPauseBtn.title = 'Pause';
         isPlaying = true;
     }
@@ -160,7 +166,7 @@ function createVideoControls(container, opts) {
             if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
             if (reverseInterval) { clearInterval(reverseInterval); reverseInterval = null; }
             videos.forEach(function(v) { v.pause(); v.playbackRate = 1; });
-            playPauseBtn.textContent = '⏵';
+            playPauseBtn.textContent = ICON_PLAY;
             playPauseBtn.title = 'Play';
             isPlaying = false;
         }
