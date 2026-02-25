@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <style>
+            pre, code {
+                font-size: 16px;
+            }
+        </style>
+
+        <!-- TEMPLATE: Update with your project title -->
+        <title>Solaris</title>
+        <link rel="icon" type="image/png" href="./static/img/icons/favicon.png">
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Open Graph metadata -->
+        <meta property="og:url" content="{{SITE_URL}}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="{{SITE_URL}}static/img/icons/solaris-banner-model-transp.png" />
+        <meta property="og:title" content="Solaris" />
+        <meta property="og:description" content="The first multiplayer video world model in Minecraft" />
+
+        <!-- Twitter metadata -->
+        <meta name="twitter:url" content="{{SITE_URL}}" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="{{SITE_URL}}static/img/icons/solaris-banner-model-transp.png" />
+        <meta name="twitter:title" content="Solaris" />
+        <meta name="twitter:description" content="The first multiplayer video world model in Minecraft" />
+
+        <!-- JS Libraries -->
+        <script src="./static/js/distill_template.v2.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/d3-collection.v1.min.js"></script>
+        <script src="https://rawgit.com/nstrayer/slid3r/master/dist/slid3r.js"></script>
+
+        <script defer="" src="./static/js/hider.js"></script>
+        <script defer src="./static/js/nav-bar.js"></script>
+        <script defer src="./static/js/image_interact.js"></script>
+        <script defer src="./static/js/switch_videos.js"></script>
+        <script defer src="./static/js/video-speed.js"></script>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="./static/css/style.css">
+        <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+        <!-- KaTeX -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+        <!-- FontAwesome -->
+        <script defer src="./static/js/fontawesome.all.min.js"></script>
+
+        <!-- Medium Zoom -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+        <script defer src="./static/js/medium-zoom.min.js"></script>
+        <script defer src="./static/js/zoom.js"></script>
+    </head>
+
+    <body>
+        <nav id="floating-nav" class="floating-nav">
+            <a href="#solaris-engine" class="floating-nav-link">Solaris Engine</a>
+            <a href="#solaris-model" class="floating-nav-link">Solaris Model</a>
+            <a href="#self-forcing" class="floating-nav-link">Self Forcing</a>
+            <a href="#solaris-eval" class="floating-nav-link">Solaris Eval</a>
+            <a href="#experiment-results" class="floating-nav-link">Experiment Results</a>
+            <a href="#capabilities-showcase" class="floating-nav-link">Capabilities Showcase</a>
+        </nav>
+        <div class="header-wrapper">
+            <video class="banner-video" autoplay loop muted playsinline>
+                <source src="static/img/banner-collage.mp4" type="video/mp4">
+            </video>
+            <div class="header-container" id="header-container">
+                <div class="header-content">
+                    <h1 style="margin-top: 0px">Solaris: Building a Multiplayer Video World Model in Minecraft</h1>
+
+                    <p class="header-description">The first multiplayer video world model in Minecraft. Solaris generates consistent first-person observations for multiple players simultaneously, trained on 12.6M frames of coordinated Minecraft gameplay.</p>
+
+                    <div class="header-links">
+                        <div class="header-links-group" style="margin-right: 8px;">
+                            <a href="{{ARXIV_URL}}" class="button paper-link" target="_blank">
+                                <span class="icon is-small"><i class="ai ai-arxiv"></i></span>
+                                arXiv
+                            </a>
+                            <a href="{{PDF_URL}}" class="button paper-link" target="_blank">
+                                <span class="icon is-small"><i class="fas fa-file-pdf"></i></span>
+                                <span>PDF</span>
+                            </a>
+                            <a href="https://github.com/solaris-wm/solaris-engine" class="button" target="_blank">
+                                <span class="icon is-small"><i class="fab fa-github"></i></span>
+                                <span>Engine</span>
+                            </a>
+                            <a href="https://github.com/solaris-wm/solaris" class="button" target="_blank">
+                                <span class="icon is-small"><i class="fab fa-github"></i></span>
+                                <span>Model</span>
+                            </a>
+                            <a href="https://huggingface.co/collections/nyu-visionx/solaris-data" class="button" target="_blank">
+                                <span class="icon is-small"><img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="HF" style="height: 1em;"></span>
+                                <span>Datasets</span>
+                            </a>
+                            <a href="https://huggingface.co/collections/nyu-visionx/solaris-models" class="button" target="_blank">
+                                <span class="icon is-small"><img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="HF" style="height: 1em;"></span>
+                                <span>Models</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <d-article>
+        <!-- Authors section: horizontal layout with random shuffle for equal contributors -->
+        <div class="byline content-section">
+            <div class="byline-authors-horizontal">
+                <span class="author-block" id="shuffled-authors" style="transition: opacity 0.5s;">
+                    <span><a href="https://georgysavva.github.io/" class="author-link" target="_blank">Georgy Savva</a><sup>†*</sup>, </span>
+                    <span><a href="https://ojmichel.github.io/" class="author-link" target="_blank">Oscar Michel</a><sup>†*</sup>, </span>
+                </span>
+                <span class="author-block" id="first-line-fixed">
+                    <a href="https://daohanlu.github.io/" class="author-link" target="_blank">Daohan Lu</a><sup>*</sup>,
+                    <a href="https://scholar.google.com/citations?user=kAOAeBsAAAAJ&hl=en" class="author-link" target="_blank">Suppakit Waiwitlikhit</a>,
+                </span>
+                <span class="author-block" id="fixed-authors">
+                    <span><a href="javascript:void(0);" class="author-link" >Timothy Meehan</a>, </span>
+                    <span><a href="https://dhairyamishra.wordpress.com/" class="author-link" target="_blank">Dhairya Mishra</a>, </span>
+                    <span><a href="javascript:void(0);" class="author-link" >Srivats Poddar</a>, </span>
+                    <span><a href="https://jacklu-me.com/" class="author-link" target="_blank">Jack Lu</a>, </span>
+                    <span><a href="https://www.sainingxie.com/" class="author-link" target="_blank">Saining Xie</a></span>
+                </span>
+                
+            </div>
+            <div class="byline-footnotes">
+                <span><sup>†</sup> Project lead; ordered randomly</span>
+                <span><sup>*</sup> Equal technical contribution</span>
+            </div>
+            <div class="byline-affiliation">
+                New York University
+            </div>
+        </div>
+        <script>
+        (function() {
+            function shuffleArray(array) {
+                for (var i = array.length - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var t = array[i]; array[i] = array[j]; array[j] = t;
+                }
+                return array;
+            }
+            function updateAuthors() {
+                var block = document.getElementById('shuffled-authors');
+                if (!block) return;
+                var authors = Array.from(block.children);
+                if (authors.length < 2) return;
+                block.style.opacity = 0;
+                setTimeout(function() {
+                    var shuffled = shuffleArray(authors);
+                    block.innerHTML = '';
+                    shuffled.forEach(function(author) { block.appendChild(author); });
+                    block.style.opacity = 1;
+                }, 500);
+            }
+            updateAuthors();
+            setInterval(updateAuthors, 5000);
+        })();
+        </script>
+
+        <!-- Teaser videos -->
+        <div class="content-section">
+        <d-figure id="fig-teaser">
+            <figure>
+                <div data-video-controls style="display: flex; flex-direction: column; gap: 8px;">
+                    <!-- Column headers -->
+                    <div style="display: flex; width: 100%; text-align: center; font-weight: 600; color: #333;">
+                        <div style="flex: 1;">Generated<br><span style="font-weight: 400; color: #666;">Player 1</span></div>
+                        <div style="flex: 1;">Ground-Truth Gameplay<br><span style="font-weight: 400; color: #666;">(not given to model)</span></div>
+                        <div style="flex: 1;">Generated<br><span style="font-weight: 400; color: #666;">Player 2</span></div>
+                    </div>
+                    <video autoplay loop muted playsinline style="width: 100%; display: block;">
+                        <source src="static/img/teaser-52.mp4" type="video/mp4">
+                    </video>
+                    <video autoplay loop muted playsinline style="width: 100%; display: block;">
+                        <source src="static/img/teaser_0072.mp4" type="video/mp4">
+                    </video>
+                    <video autoplay loop muted playsinline style="width: 100%; display: block;">
+                        <source src="static/img/teaser-28.mp4" type="video/mp4">
+                    </video>
+                    <video autoplay loop muted playsinline style="width: 100%; display: block;">
+                        <source src="static/img/teaser-64.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <figcaption style="text-align: center; margin-top: 10px;">
+                    Selected samples from Solaris. Each row shows a generated episode: the left and right panels are the first-person views produced by our model for each player, and the center panel is the ground truth third-person view (not given to the model).
+                    Click video to enlarge.
+                </figcaption>
+            </figure>
+        </d-figure>
+        <script src="./static/js/video-controls.js"></script>
+        <script defer src="./static/js/gallery.js"></script>
+
+        <!-- TLDR -->
+        <h2 class="text" style="margin-bottom: 0;">TLDR</h2>
+        <div class="highlight-box" style="text-align: left; font-style: normal; font-weight: normal;">
+            Current video world models only handle single-player perspectives, which doesn't reflect how the real world actually works. We built Solaris, the first multiplayer video world model that generates consistent observations across multiple players simultaneously. A core contribution is SolarisEngine, a multiplayer data collection system we designed and built entirely in-house since existing platforms were only ever designed for single-player settings. It supports coordinated multi-agent interaction and synchronized visual capture in games like Minecraft. Using it, we collected 12.6M multiplayer frames and created evaluation benchmarks for multiplayer movement, grounding, memory, building, and consistency. Training-wise, we use a staged pipeline that progressively goes from single-player to multiplayer modeling, combining bidirectional, causal, and Self Forcing training objectives. We also introduce Checkpointed Self Forcing, a memory-efficient Self Forcing variant for scalable long-horizon teacher guidance. We're open-sourcing everything.
+        </div>
+
+        <!-- Section navigation -->
+        <h3 class="text" style="text-align: center; margin-bottom: 0px;">JUMP TO:</h3>
+        <div class="icon-row">
+            <a href="#solaris-engine" class="icon-link">Solaris<br>Engine</a>
+            <a href="#solaris-model" class="icon-link">Solaris<br>Model</a>
+            <a href="#self-forcing" class="icon-link">Self<br>Forcing</a>
+            <a href="#solaris-eval" class="icon-link">Solaris<br>Eval</a>
+            <a href="#experiment-results" class="icon-link">Experiment<br>Results</a>
+            <a href="#capabilities-showcase" class="icon-link">Capabilities<br>Showcase</a>
+        </div>
+        <!-- <hr> -->
+        </div>
+
+        <!-- Solaris Engine -->
+        <div id="solaris-engine" class="content-section">
+            <h1 class="text" style="text-align: center;"><img src="static/img/icons/solaris-banner-engine-transp.png" alt="Solaris Engine" style="max-height: 2.8em; max-width: 100%;"></h1>
+
+            <d-figure id="fig-dataset-collage">
+                <figure>
+                    <video autoplay loop muted playsinline style="width: 100%; display: block; margin: 0 auto;">
+                        <source src="static/img/dataset-collage.mp4" type="video/mp4">
+                    </video>
+                    <figcaption style="text-align: center; margin-top: 20px;">
+                        <strong>Figure 1:</strong> Sample episodes from our multiplayer dataset collected with SolarisEngine. Each column shows a different task type (building, bridging, PvP, PvE, chasing, exploration, mining, and collecting), with three episodes per task. The third-person view shown here is for visualization only; SolarisEngine renders first-person observations and actions, which is what our model is trained on.
+                    </figcaption>
+                </figure>
+            </d-figure>
+
+            <p class="text" align="justify">
+                Several frameworks exist for controlling agents in Minecraft, including Malmo, MineRL, MineDojo, and Mineflayer. While these tools each offer useful capabilities, none of them were designed with multiplayer data collection in mind. Frameworks like MineRL and MineDojo use low-level action spaces where agents can only take random actions, producing chaotic gameplay that is unusable for world modeling. This problem only gets worse with multiple agents acting randomly at the same time. Mineflayer provides high-level primitives like pathfinding and block placement, but it was never built for coordinated multi-agent interaction. There was simply no existing system we could use off the shelf for collecting realistic multiplayer gameplay data, so we built one from scratch.
+            </p>
+
+            <h3 class="text">Cooperative Multiplayer Gameplay</h3>
+
+            <p class="text" align="justify">
+                We chose Mineflayer as our foundation because it provides composable primitives for things like pathfinding, block placement, and combat. On top of this, we built a communication layer that lets bots coordinate with each other during episodes. We also introduced higher-level primitives for building, scaffolding, tool use, and navigation. When combined, these form complete episodes where two bots work together toward a predefined goal. We built a library of episode types covering core aspects of Minecraft interaction: building houses and bridges, PvP and PvE combat, chasing and exploration, and mining (<a href="#fig-dataset-collage">Figure 1</a>). Although the episode logic is written using these high-level primitives, the system translates everything down to a low-level action space compatible with VPT, a single-player Minecraft dataset collected from human players.
+            </p>
+
+            <h3 class="text">Extracting and Aligning Visuals with Actions</h3>
+
+            <p class="text" align="justify">
+                Mineflayer controls a character but cannot render graphics. To get visual observations, we pair each controller bot with a camera bot running the official Minecraft Java client in headless mode. A custom server-side plugin synchronizes the camera to mirror the controller's position, orientation, and even animations in real time. Although they run as separate processes, the controller and camera together form a single logical player. Actions and visual observations are aligned in post-processing using timestamps at a shared 20 FPS frame rate. The overall architecture is shown in <a href="#fig-solaris-engine">Figure 2</a>.
+            </p>
+
+            <d-figure id="fig-solaris-engine">
+                <figure>
+                    <img data-zoomable="" draggable="false" src="static/img/solaris-system-outer.png" alt="SolarisEngine Overview" style="width: 60%; display: block; margin: 0 auto;">
+                    <figcaption style="text-align: center; margin-top: 20px;">
+                        <strong>Figure 2:</strong> SolarisEngine Overview. Our system orchestrates camera and controller bots that work together to coordinate gameplay behavior and collect aligned actions and observations.
+                    </figcaption>
+                </figure>
+            </d-figure>
+
+            <h3 class="text">Scalable Data Collection</h3>
+
+            <p class="text" align="justify">
+                We package the controller bots, camera bots, and Minecraft server as Docker containers orchestrated through Docker Compose. A suite of Python scripts manages these units, launching multiple workers in parallel for scalable collection. The bots run in a loop, sampling and executing episodes from our library, teleporting to a random location at the start of each episode to diversify terrain. Since Minecraft is complex and stochastic, episodes inevitably encounter errors or get stuck. We built a safety mechanism that detects failures during execution, notifies all components, and aborts the current episode. The system then proceeds with a fresh state, enabling continuous data collection without manual intervention.
+            </p>
+
+            <h3 class="text">Training Dataset</h3>
+
+            <p class="text" align="justify">
+                Using SolarisEngine, we collected a multiplayer Minecraft training dataset totaling 9,240 episodes and 6.32M frames per player (12.64M combined). The episodes fall into four broad categories: building (houses, walls, towers, bridges), combat (PvP and PvE), movement (chasing, navigation, exploration), and mining. We split episodes evenly between Superflat and Normal world types, and vary times of day, biomes, and weather to maximize visual diversity. Episode lengths range from 128 to 512 frames (6.4 to 25.6 seconds at 20 fps), with episode types sampled randomly using weights that decrease with typical episode length to keep the distribution balanced. All actions are annotated as semantic game events in the format compatible with VPT, covering movement, camera, and interactive inputs like digging, placing, and attacking. To our knowledge, this is the first action-annotated multiplayer Minecraft dataset suitable for training world models. <a href="#fig-dataset-plots">Figure 3</a> shows the full dataset breakdown.
+            </p>
+
+            <d-figure id="fig-dataset-plots">
+                <figure>
+                    <img data-zoomable="" draggable="false" src="static/img/dataset-plots.png" alt="Dataset statistics" style="width: 90%; display: block; margin: 0 auto;">
+                    <figcaption style="text-align: center; margin-top: 20px;">
+                        <strong>Figure 3:</strong> Dataset statistics. (Left) Our dataset consists of four episode categories focusing on building, combat, movement, and mining. (Middle) Episode type distribution across 9,240 total episodes and 6.32M frames per player. (Right) Episode length distribution, with most episodes between 128 and 512 frames.
+                    </figcaption>
+                </figure>
+            </d-figure>
+        </div>
+
+        <!-- Solaris Model -->
+        <div id="solaris-model" class="content-section">
+            <h1 class="text" style="text-align: center;"><img src="static/img/icons/solaris-banner-model-transp.png" alt="Solaris Model" style="max-height: 2.8em; max-width: 100%;"></h1>
+
+            <p class="text" align="justify">
+                Solaris <a href="https://github.com/solaris-wm/solaris/" target="_blank">Solaris</a> is a controllable video diffusion model that jointly predicts future observations for multiple players, conditioned on their past observations and actions. We train it using flow matching combined with diffusion forcing, where independent noise levels are sampled per player and per timestep. This lets the model learn to denoise each player's observation stream while staying consistent across players.
+            </p>
+
+            <p class="text" align="justify">
+                We build on <a href="https://matrix-game-v2.github.io/" target="_blank">MatrixGame 2.0</a><d-cite key="matrixgame2"></d-cite>, a single-player video Diffusion Transformer (DiT) trained on multiple video games including Minecraft. We initialize from their pretrained checkpoint and frozen VAE, then make three key modifications to support multiplayer. First, we expand the action space to cover the full range of Minecraft inputs from VPT, increasing the input dimension of the action conditioning module. Second, we introduce multiplayer self-attention layers where tokens from all players are concatenated and attend to each other, allowing information exchange between players within each DiT block (<a href="#fig-solaris-model">Figure 4</a>). We apply 3D rotary position embeddings independently per player and add learned player ID embeddings so the model can distinguish between them. Third, all other modules (cross-attention for first-frame conditioning, feed-forward layers, action conditioning) remain unchanged from MatrixGame 2.0 and are applied independently per player. While we currently train with two players, the architecture generalizes to any number.
+            </p>
+
+            <d-figure id="fig-solaris-model">
+                <figure>
+                    <img data-zoomable="" draggable="false" src="static/img/arch.png" alt="Solaris Model Architecture" style="width: 40%; display: block; margin: 0 auto;">
+                    <figcaption style="text-align: center; margin-top: 20px;">
+                        <strong>Figure 4:</strong> Our modified DiT block achieves multiplayer modeling through visual interleaving along the sequence dimension. Multiplayer information is exchanged through a shared self-attention block. Other modules are unchanged from MatrixGame 2.0 and applied independently per player.
+                    </figcaption>
+                </figure>
+            </d-figure>
+        </div>
+
+        <!-- Self Forcing -->
+        <div id="self-forcing" class="content-section">
+            <h1 class="text">Self Forcing</h1>
+
+            <p class="text" align="justify">
+                Autoregressive video generation models are trained on ground truth context but must condition on their own outputs at inference time. This train-test mismatch causes errors to accumulate over long rollouts, leading to visual degradation. <a href="https://self-forcing.github.io/" target="_blank">Self Forcing</a> addresses this by training the model on its own generated outputs: the generator unrolls autoregressively during training, and a pretrained bidirectional teacher provides a distributional loss on the resulting frames. This closes the gap between training and inference and significantly improves long-horizon generation quality. The videos below show the effect on our model. The left and right views correspond to the two players (Alpha and Bravo).
+            </p>
+
+            <d-figure id="fig-sf-comparison">
+                <figure>
+                    <div data-video-controls style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 300px;">
+                            <video autoplay loop muted playsinline style="width: 100%; display: block;">
+                                <source src="static/img/sf-before.mp4" type="video/mp4">
+                            </video>
+                            <p style="text-align: center; margin-top: 5px; font-size: 0.9em; color: #555;"><strong>Before Self Forcing (Causal only)</strong></p>
+                        </div>
+                        <div style="flex: 1; min-width: 300px;">
+                            <video autoplay loop muted playsinline style="width: 100%; display: block;">
+                                <source src="static/img/sf-after.mp4" type="video/mp4">
+                            </video>
+                            <p style="text-align: center; margin-top: 5px; font-size: 0.9em; color: #555;"><strong>After Self Forcing</strong></p>
+                        </div>
+                    </div>
+                    <figcaption style="text-align: center; margin-top: 10px;">
+                        <strong>Figure 5:</strong> Long autoregressive rollouts before and after Self Forcing. Without Self Forcing, the causal model degrades over time as errors compound.
+                        With Self Forcing, generation quality remains stable throughout the sequence. Click video to enlarge.
+                    </figcaption>
+                </figure>
+            </d-figure>
+
+            <h3 class="text">Checkpointed Self Forcing</h3>
+
+            <p class="text" align="justify">
+                We apply Self Forcing with a long-context bidirectional teacher. Our generator uses a rolling KV cache with a sliding window of 6 latent frames, but the teacher operates over the full sequence. In the original Self Forcing formulation, the generator must unroll autoregressively during training, building up a computation graph that grows with sequence length. When combined with a long-context teacher, the memory cost of backpropagating through this graph becomes prohibitive.
+            </p>
+
+            <p class="text" align="justify">
+                To fix this, we introduce Checkpointed Self Forcing. Instead of backpropagating through the full autoregressive rollout, we split training into two phases. First, we run the autoregressive rollout forward with gradients disabled, caching the clean frame estimates and their corresponding noisy inputs at each step. Second, we recompute the generator's outputs in a single parallelized forward pass using a custom attention mask that reproduces the sliding-window causal dependencies from the rollout. This converts the sequential unrolling into one parallel operation, reducing memory in the backward pass. The resulting memory savings also make it feasible to backpropagate through the KV cache representations, which the original Self Forcing implementation blocks with a stop-gradient. We find that enabling these gradients further improves generation quality (see the <a href="javascript:void(0);">paper</a> for details). <a href="#fig-memory-plot">Figure 6</a> compares the peak memory usage of naive Self Forcing to our checkpointed variant.
+            </p>
+
+            <d-figure id="fig-memory-plot">
+                <figure>
+                    <img data-zoomable="" draggable="false" src="static/img/memory_plot.png" alt="Peak HBM memory usage comparison between naive Self Forcing and Checkpointed Self Forcing" style="width: 50%; display: block; margin: 0 auto;">
+                    <figcaption style="text-align: center; margin-top: 20px;">
+                        <strong>Figure 6:</strong> Peak HBM memory per training step for naive Self Forcing vs. Checkpointed Self Forcing across varying network depths. Naive Self Forcing memory grows linearly with depth, while our method scales sublinearly. Measurements use scaled-down networks to avoid OOM on the naive baseline.
+                    </figcaption>
+                </figure>
+            </d-figure>
+        </div>
+
+        <!-- Evaluation Benchmarks -->
+        <div id="solaris-eval" class="content-section">
+            <!-- <h1 class="text" style="text-align: center; font-size: 2.8em;">Solaris Eval</h1> -->
+            <h1 class="text" style="text-align: center;"><img src="static/img/icons/solaris-banner-eval-transp.png" alt="Solaris Eval" style="max-height: 2.8em; max-width: 100%;"></h1>
+            <p class="text" align="justify">
+                We create the <a href="https://huggingface.co/datasets/nyu-visionx/solaris-eval-datasets" target="_blank">Solaris Eval</a> dataset, which
+                tests five multiplayer capabilities across 7 unique held-out ground-truth
+                episodes. Here, we show the ground-truth episodes in Solaris Eval. The left and right are the first-person views of each
+                player, and the center is the third-person view (square center-cropped).
+            </p>
+
+            <!-- Movement -->
+            <div class="eval-category">
+                <h2 class="text">Movement</h2>
+                <p class="text" align="justify">
+                    Tests the model's ability to render visually consistent agent translation
+                    (WASD) and camera rotation (mouse) from both players' views simultaneously.
+                    One bot moves while the other observes; the VLM judges whether the moving
+                    player's position changed correctly in the observer's view.
+                </p>
+                <d-figure>
+                    <figure>
+                        <div data-video-controls style="display: flex; flex-direction: column; gap: 8px;">
+                            <!-- Column headers -->
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div class="eval-row-label" style="visibility: hidden;">Placeholder</div>
+                                <div style="display: flex; flex: 1; min-width: 0; text-align: center; font-weight: 600; color: #333;">
+                                    <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Player 1</span></div>
+                                    <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Third-Person View</span></div>
+                                    <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Player 2</span></div>
+                                </div>
+                            </div>
+                            <!-- Row label + video: Rotation -->
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div class="eval-row-label">Rotation</div>
+                                <video autoplay loop muted playsinline style="flex: 1; min-width: 0; display: block;">
+                                    <source src="static/img/eval/movement_rotation.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <!-- Row label + video: Translation -->
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div class="eval-row-label">Translation</div>
+                                <video autoplay loop muted playsinline style="flex: 1; min-width: 0; display: block;">
+                                    <source src="static/img/eval/movement_translation.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </figure>
+                </d-figure>
+            </div>
+
+            <!-- Grounding -->
+            <div class="eval-category">
+                <h2 class="text">Grounding</h2>
+                <p class="text" align="justify">
+                    Tests whether the model remembers the other player's position through
+                    observation. One agent turns away (losing sight of the other), pauses,
+                    then turns back. Because the turning agent was continuously observed by
+                    the stationary player, it should know where the other agent is — the VLM
+                    checks whether it sees the other player upon returning.
+                </p>
+                <d-figure>
+                    <figure>
+                        <div data-video-controls style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="display: flex; width: 100%; text-align: center; font-weight: 600; color: #333;">
+                                <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Player 1</span></div>
+                                <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Third-Person View</span></div>
+                                <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Player 2</span></div>
+                            </div>
+                            <video autoplay loop muted playsinline style="width: 100%; display: block;">
+                                <source src="static/img/eval/grounding_onelooksaway.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </figure>
+                </d-figure>
+            </div>
+
+            <!-- Consistency -->
+            <div class="eval-category">
+                <h2 class="text">Consistency</h2>
+                <p class="text" align="justify">
+                    Tests whether co-visible regions are rendered consistently across both
+                    players. Two agents near each other simultaneously turn to look in the
+                    same random direction; the VLM checks whether both players see the same
+                    scene.
+                </p>
+                <d-figure>
+                    <figure>
+                        <div data-video-controls style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div class="eval-row-label" style="visibility: hidden;">Placeholder</div>
+                                <div style="display: flex; flex: 1; min-width: 0; text-align: center; font-weight: 600; color: #333;">
+                                    <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Player 1</span></div>
+                                    <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Third-Person View</span></div>
+                                    <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Player 2</span></div>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div class="eval-row-label">Turn to Look</div>
+                                <video autoplay loop muted playsinline style="flex: 1; min-width: 0; display: block;">
+                                    <source src="static/img/eval/consistency_turntolook.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div class="eval-row-label">Turn to Look<br>Opposite</div>
+                                <video autoplay loop muted playsinline style="flex: 1; min-width: 0; display: block;">
+                                    <source src="static/img/eval/consistency_turntolookopposite.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </figure>
+                </d-figure>
+            </div>
+
+            <!-- Memory -->
+            <div class="eval-category">
+                <h2 class="text">Memory</h2>
+                <p class="text" align="justify">
+                    Tests whether the model can remember the environment and other agents
+                    across time. Both agents turn away from each other, pause, then return
+                    to their original orientations. The VLM checks whether both agents see
+                    each other again after turning back.
+                </p>
+                <d-figure>
+                    <figure>
+                        <div data-video-controls style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="display: flex; width: 100%; text-align: center; font-weight: 600; color: #333;">
+                                <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Player 1</span></div>
+                                <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Third-Person View</span></div>
+                                <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Player 2</span></div>
+                            </div>
+                            <video autoplay loop muted playsinline style="width: 100%; display: block;">
+                                <source src="static/img/eval/memory_bothlookaway.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </figure>
+                </d-figure>
+            </div>
+
+            <!-- Building -->
+            <div class="eval-category">
+                <h2 class="text">Building</h2>
+                <p class="text" align="justify">
+                    Tests the model's ability to reflect environmental changes caused by agents'
+                    actions. One bot constructs a pre-defined shape, either a square,
+                    horizontal strip, or vertical strip,  while the other bot
+                    watches. After construction the builder moves next to the observer so the
+                    full structure is in view for both. The VLM evaluates whether the observer
+                    sees the completed structure.
+                </p>
+                <d-figure>
+                    <figure>
+                        <div data-video-controls style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="display: flex; width: 100%; text-align: center; font-weight: 600; color: #333;">
+                                <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Player 1</span></div>
+                                <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Third-Person View</span></div>
+                                <div style="flex: 1;">Ground-Truth<br><span style="font-weight: 400; color: #666;">Player 2</span></div>
+                            </div>
+                            <video autoplay loop muted playsinline style="width: 100%; display: block;">
+                                <source src="static/img/eval/building_structure.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </figure>
+                </d-figure>
+            </div>
+
+        </div>
+
+        <!-- Experiment Results -->
+        <div id="experiment-results" class="content-section">
+            <h1 class="text">Experiment Results</h1>
+            <p class="text">
+                Here we discuss results from our model Solaris. As can be seen in the <a href="#fig-teaser">teaser video</a> section above, our model
+is capable of simulating complex aspects of Minecraft gameplay, including building, mining, fighting,
+and multiplayer viewpoint modeling. Examples of advanced model capabilities—including inventory
+tracking, simulating weather, placing torches, generating animations, and simulating PvP—are presented
+in the <a href="#capabilities-showcase">Solaris Model Capabilities</a> section below. Sections <a href="#architecture-experiments">Architecture Experiments</a> and <a href="#self-forcing-ablations">Self Forcing Ablations</a> discuss and present results from our architecture comparison and self-forcing training variations respectively.            
+            </p>
+
+            <!-- Architecture Experiments -->
+            <div class="eval-category" id="architecture-experiments">
+                <h2 class="text">Architecture Experiments</h2>
+                <p class="text" align="justify">
+                    We compare our architecture implementation to the frame concatenation method of Multiverse<d-cite key="enigma2025multiverse"></d-cite>, the
+                    only existing multiplayer world model prior to this work. We also test the necessity of single-player
+                    pretraining by comparing the performance of our method to the variant trained without the single-player
+                    model initialization. Our method produces superior visual results both qualitatively, as shown in the <a href="#architecture-qualitative-results">Qualitative results</a> subsection below,
+                    and quantitatively across all evaluation categories, as shown in <a href="#table-1">Table 1</a>. All architecture variants are
+                    strong at action following in motion-based trajectories, and get a high VLM score on the evaluation in
+                    the corresponding category, as shown in <a href="#table-1">Table 1</a>. Our method shows superior performance on difficult
+                    scenarios involving building, scene consistency, and player grounding, reflected by the higher VLM
+                    scores in those categories. Although the frame concatenation method outperforms in our Movement
+                    evaluation, we find qualitatively that it exhibits action hallucinations in the presence of no-op actions.
+                </p>
+                <div class="text" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <h3 class="text" id="architecture-qualitative-results" style="margin: 0;">Qualitative Results</h3>
+                    <label class="show-actions-label" style="white-space: nowrap; flex-shrink: 0;">
+                        <input type="checkbox" checked onchange="toggleQualitativeActions(this, 'architecture-qualitative-videos')">
+                        Show Actions
+                    </label>
+                </div>
+                <d-figure>
+                    <figure>
+                        <div id="architecture-qualitative-videos" data-video-controls style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div class="eval-row-label" style="visibility: hidden;">Placeholder</div>
+                                <div style="display: flex; flex: 1; min-width: 0; text-align: center; font-weight: 600; color: #333;">
+                                    <div style="flex: 1;">Generated<br><span style="font-weight: 400; color: #666;">Player 1</span></div>
+                                    <div style="flex: 1;">Generated<br><span style="font-weight: 400; color: #666;">Player 2</span></div>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div class="eval-row-label">Frame concat</div>
+                                <video autoplay loop muted playsinline style="flex: 1; min-width: 0; display: block;">
+                                    <source src="static/videos_comparison/concat_annotations.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div class="eval-row-label">Solaris w/o pretrain</div>
+                                <video autoplay loop muted playsinline style="flex: 1; min-width: 0; display: block;">
+                                    <source src="static/videos_comparison/from_scratch_annotations.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div class="eval-row-label">Solaris</div>
+                                <video autoplay loop muted playsinline style="flex: 1; min-width: 0; display: block;">
+                                    <source src="static/videos_comparison/flagship_annotations.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <figcaption style="text-align: center; margin-top: 10px;">
+                            Qualitative comparison across architecture variations. Our model Solaris is able to produce stable and coherent frame generations for long-horizon, as shown here with 224 frames. Unlike the baselines, it maintains realistic fighting gameplay and displays complex terrain that maintains realistic texture. In contrast, the frame concatenation baseline shows severe degradation for the second player and flattened texture for the first player. &quot;Solaris w/o pretrain&quot; exhibits unnatural behavior such as duplicating player bodies, showing incorrect pop-up notifications, and degenerating to an unrealistic underwater setting.
+                        </figcaption>
+                    </figure>
+                </d-figure>
+                <h3 class="text">Quantitative Results</h3>
+                <d-figure id="table-1">
+                    <figure>
+                        <div class="table-container">
+                            <table class="styled-table">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Method</th>
+                                        <th colspan="2">Movement</th>
+                                        <th colspan="2">Grounding</th>
+                                        <th colspan="2">Memory</th>
+                                        <th colspan="2">Building</th>
+                                        <th colspan="2">Consistency</th>
+                                    </tr>
+                                    <tr>
+                                        <th>VLM &uarr;</th><th>FID &darr;</th>
+                                        <th>VLM &uarr;</th><th>FID &darr;</th>
+                                        <th>VLM &uarr;</th><th>FID &darr;</th>
+                                        <th>VLM &uarr;</th><th>FID &darr;</th>
+                                        <th>VLM &uarr;</th><th>FID &darr;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:left;">Frame concat</td>
+                                        <td><b>77.08</b></td><td>68.87</td>
+                                        <td>53.13</td><td>66.57</td>
+                                        <td><b>37.50</b></td><td>74.44</td>
+                                        <td>0.00</td><td>103.24</td>
+                                        <td>53.11</td><td>129.38</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left;"><i>Solaris</i> w/o pretrain</td>
+                                        <td>69.27</td><td>42.53</td>
+                                        <td>29.17</td><td>49.85</td>
+                                        <td>18.75</td><td>67.80</td>
+                                        <td>0.00</td><td>86.60</td>
+                                        <td>49.48</td><td>121.39</td>
+                                    </tr>
+                                    <tr style="background-color: #f0f7ff;">
+                                        <td style="text-align:left;"><b><i>Solaris</i></b></td>
+                                        <td>68.23</td><td><b>38.48</b></td>
+                                        <td><b>62.50</b></td><td><b>38.03</b></td>
+                                        <td><b>37.50</b></td><td><b>55.13</b></td>
+                                        <td><b>20.83</b></td><td><b>83.58</b></td>
+                                        <td><b>71.35</b></td><td><b>99.40</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <figcaption>
+                            <b>Table 1:</b> Quantitative comparison across tasks. We compare our method against concatenating player observations along the channel dimension following Multiverse<d-cite bibtex-key="enigma2025multiverse"></d-cite> and training from scratch without single-player pretraining.
+                        </figcaption>
+                    </figure>
+                </d-figure>
+            </div>
+
+            <!-- Self Forcing Ablations -->
+            <div class="eval-category" id="self-forcing-ablations">
+                <h2 class="text">Self Forcing Ablations</h2>
+                <p class="text" align="justify">
+                    We ablate each component of our Self Forcing pipeline. We study the two main stages of CausVid,
+                    ODE regression initialization and few-step distillation, and find that straightforward causal finetuning
+                    is sufficient instead. Although the original Self Forcing paper assumes the generator to be a few-step
+                    model at the start of training, we find that the few-step ability can be learned simultaneously with stable
+                    autoregressive generation in Self Forcing.
+                    Next, we study the ability to backpropagate to the KV representations of the self attention layer, which
+                    is feasible with the memory savings of our method. Allowing KV backpropagation achieves better visual
+                    results than all other variants based on FID, as shown in <a href="#table-2">Table 2</a>. We do observe that this causes decreased
+                    performance in action following for some categories. However, our method remains competitive across
+                    all categories and excels in the challenging Building and Consistency VLM tasks.
+                </p>
+                <h3 class="text">Quantitative Results</h3>
+                <d-figure id="table-2">
+                    <figure>
+                        <div class="table-container">
+                            <table class="styled-table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Components</th>
+                                        <th colspan="2">Movement</th>
+                                        <th colspan="2">Grounding</th>
+                                        <th colspan="2">Memory</th>
+                                        <th colspan="2">Building</th>
+                                        <th colspan="2">Consistency</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Init.</th><th>Pre-DMD</th><th>KV-BP</th>
+                                        <th>VLM &uarr;</th><th>FID &darr;</th>
+                                        <th>VLM &uarr;</th><th>FID &darr;</th>
+                                        <th>VLM &uarr;</th><th>FID &darr;</th>
+                                        <th>VLM &uarr;</th><th>FID &darr;</th>
+                                        <th>VLM &uarr;</th><th>FID &darr;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ODE Reg</td><td>&times;</td><td>&check;</td>
+                                        <td>23.44</td><td>65.28</td>
+                                        <td>3.13</td><td>56.59</td>
+                                        <td>0.00</td><td>99.47</td>
+                                        <td>3.13</td><td>95.69</td>
+                                        <td>48.96</td><td>142.33</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Causal FT</td><td>&check;</td><td>&check;</td>
+                                        <td>21.35</td><td>49.07</td>
+                                        <td>3.13</td><td>40.38</td>
+                                        <td>0.00</td><td>55.67</td>
+                                        <td>8.33</td><td>90.51</td>
+                                        <td>55.21</td><td>160.08</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Causal FT</td><td>&times;</td><td>&times;</td>
+                                        <td><b>78.65</b></td><td>60.29</td>
+                                        <td><b>72.92</b></td><td>55.23</td>
+                                        <td><b>48.96</b></td><td>63.80</td>
+                                        <td>15.63</td><td>87.43</td>
+                                        <td>70.83</td><td>105.08</td>
+                                    </tr>
+                                    <tr style="background-color: #f0f7ff;">
+                                        <td>Causal FT</td><td>&times;</td><td>&check;</td>
+                                        <td>68.23</td><td><b>38.48</b></td>
+                                        <td>62.50</td><td><b>38.03</b></td>
+                                        <td>37.50</td><td><b>55.13</b></td>
+                                        <td><b>20.83</b></td><td><b>83.58</b></td>
+                                        <td><b>71.35</b></td><td><b>99.40</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <figcaption>
+                            <b>Table 2:</b> Ablation study of Self Forcing<d-cite bibtex-key="selfforcing"></d-cite> training components. We study the initialization of the causal model, finding simple causal finetuning with Diffusion Forcing to suffice. We also find that doing a few-step distillation before Self-Forcing is ineffective. Finally, we find that enabling KV cache backpropagation improves visual quality.
+                        </figcaption>
+                    </figure>
+                </d-figure>
+            </div>
+        </div>
+
+        
+
+        <div id="capabilities-showcase" class="content-section">
+            <h1 class="text">Solaris Model Capabilities</h1>
+            <p class="text">
+                We showcase the learned capabilities of our model.
+                We present generated videos demonstrating the model's ability to simulate complex game dynamics.
+            </p>
+
+            <!-- Subsection: Joint World State -->
+            <div class="text curated-header" onclick="toggleCuratedSection('curated-body-0','curated-arrow-0')">
+            <h3><span id="curated-arrow-0" class="toggle-arrow">▶</span> Emergent: Joint World State</h3>
+            <label onclick="event.stopPropagation()">
+                <input type="checkbox" onchange="toggleCuratedActions(this, 'curated-grid-0')">
+                Show Actions
+            </label>
+        </div>
+        <div id="curated-body-0" class="curated-body">
+            <div id="curated-grid-0" class="curated-grid">
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_test_split/uncurated_unannotated/video_14_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">As one player mines or places blocks, the changes are reflected in both players' perspectives.</p></div>
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_test_split/uncurated_unannotated/video_125_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">As one player mines or places blocks, the changes are reflected in both players' perspectives.</p></div>
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_test_split/uncurated_unannotated/video_21_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Rain starts spontaenously and simultaneously for both players.</p></div>
+                <!-- <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_test_split/uncurated_unannotated/video_282_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Rain starts spontaenously and simultaneously (around 00:08s) for both players.</p></div> -->
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_test_split/uncurated_unannotated/video_107_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Rain starts spontaenously and simultaneously (around 00:04s) for both players.</p></div>
+            </div>
+        </div>
+
+        <!-- Subsection: Emergent: Joint Visual Generation -->
+        <div class="text curated-header" onclick="toggleCuratedSection('curated-body-1','curated-arrow-1')">
+            <h3><span id="curated-arrow-1" class="toggle-arrow">▶</span> Emergent: Co-observation Consistency</h3>
+            <label onclick="event.stopPropagation()">
+                <input type="checkbox" onchange="toggleCuratedActions(this, 'curated-grid-1')">
+                Show Actions
+            </label>
+        </div>
+        <div id="curated-body-1" class="curated-body">
+            <div id="curated-grid-1" class="curated-grid">
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_eval_split/co_observation_unannotated/video_5_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Both players see the same house as they turn together, which is initially only in Alpha's view.</p></div>
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_eval_split/co_observation_unannotated/video_14_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Both players see a similar dessert scene with a pond as they turn together. The pond is not initially in view.</p></div>
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_eval_split/co_observation_unannotated/video_27_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Both players see a similar snowy hill with a tree on the right.</p></div>
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_eval_split/co_observation_unannotated/video_29_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Both players see a similar grassy hill with flowers in the foregound.</p></div>
+            </div>
+        </div>
+
+        <!-- Subsection: Mining -->
+        <div class="text curated-header" onclick="toggleCuratedSection('curated-body-2','curated-arrow-2')">
+            <h3><span id="curated-arrow-2" class="toggle-arrow">▶</span> Mining</h3>
+            <label onclick="event.stopPropagation()">
+                <input type="checkbox" onchange="toggleCuratedActions(this, 'curated-grid-2')">
+                Show Actions
+            </label>
+        </div>
+        <div id="curated-body-2" class="curated-body">
+            <div id="curated-grid-2" class="curated-grid">
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_test_split/uncurated_unannotated/video_38_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Players take turn mining and placing torches.</p></div>
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_test_split/uncurated_unannotated/video_71_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Players take turn mining and placing torches.</p></div>
+            </div>
+        </div>
+
+        <!-- Subsection: Building -->
+        <div class="text curated-header" onclick="toggleCuratedSection('curated-body-3','curated-arrow-3')">
+            <h3><span id="curated-arrow-3" class="toggle-arrow">▶</span> Building</h3>
+            <label onclick="event.stopPropagation()">
+                <input type="checkbox" onchange="toggleCuratedActions(this, 'curated-grid-3')">
+                Show Actions
+            </label>
+        </div>
+        <div id="curated-body-3" class="curated-body">
+            <div id="curated-grid-3" class="curated-grid">
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_test_split/uncurated_unannotated/video_120_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Players build parts of a house.</p></div>
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_test_split/uncurated_unannotated/video_108_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Players build a tower of blocks.</p></div>
+            </div>
+        </div>
+
+        <!-- Subsection: Combat -->
+        <div class="text curated-header" onclick="toggleCuratedSection('curated-body-4','curated-arrow-4')">
+            <h3><span id="curated-arrow-4" class="toggle-arrow">▶</span> Combat</h3>
+            <label onclick="event.stopPropagation()">
+                <input type="checkbox" onchange="toggleCuratedActions(this, 'curated-grid-4')">
+                Show Actions
+            </label>
+        </div>
+        <div id="curated-body-4" class="curated-body">
+            <div id="curated-grid-4" class="curated-grid">
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_test_split/uncurated_unannotated/video_47_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Players engage in PvP combat.</p></div>
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_test_split/uncurated_unannotated/video_19_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Players engage in PvP combat.</p></div>
+            </div>
+        </div>
+
+        <!-- Subsection: Movement -->
+        <div class="text curated-header" onclick="toggleCuratedSection('curated-body-5','curated-arrow-5')">
+            <h3><span id="curated-arrow-5" class="toggle-arrow">▶</span> Movement</h3>
+            <label onclick="event.stopPropagation()">
+                <input type="checkbox" onchange="toggleCuratedActions(this, 'curated-grid-5')">
+                Show Actions
+            </label>
+        </div>
+        <div id="curated-body-5" class="curated-body">
+            <div id="curated-grid-5" class="curated-grid">
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_test_split/uncurated_unannotated/video_27_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Players move around and jump randomly. The movement is reflected in both players' perspectives.</p></div>
+                <div class="gallery-item"><video loop muted playsinline preload="metadata"><source src="static/videos_test_split/uncurated_unannotated/video_12_side_by_side.mp4" type="video/mp4"></video><p class="gallery-caption">Players move around and jump randomly. The movement is reflected in both players' perspectives.</p></div>
+            </div>
+        </div>
+
+        <h2 class="text">Failure Cases</h2>
+
+
+        <div class="text curated-header" onclick="var b=document.getElementById('uncurated-body'),a=document.getElementById('uncurated-arrow');if(getComputedStyle(b).display==='none'){b.style.display='block';a.classList.add('expanded')}else{b.style.display='none';a.classList.remove('expanded')}">
+            <h2><span id="uncurated-arrow" class="toggle-arrow">▶</span> Uncurated Generations</h2>
+            <label onclick="event.stopPropagation()">
+                <input type="checkbox" id="uncurated-actions-toggle" onchange="uncuratedGallery.toggleActions(this.checked)">
+                Show Actions
+            </label>
+        </div>
+        <div id="uncurated-body" class="text" style="display:none;">
+            <div id="uncurated-grid" class="uncurated-grid"></div>
+            <div id="uncurated-pager" style="display:flex;align-items:center;justify-content:center;gap:12px;margin:16px 0;font-size:0.9em;"></div>
+        </div>
+
+        </div> <!-- end capabilities-showcase -->
+
+        <!-- TEMPLATE: BibTeX Citation -->
+        <div class="content-section">
+            <div id="bibtex" style="position: relative; margin-top: 40px; margin-bottom: 0px; color: gray;">
+                <h2 class="text" style="margin-top:0px; margin-bottom:10px">BibTeX</h2>
+                <pre><code>@article{solaris2026,
+  title={Solaris: Building a Multiplayer Video World Model in Minecraft},
+  author={Georgy Savva, Oscar Michel, Daohan Lu, Suppakit Waiwitlikhit, Timothy Meehan, Dhairya Mishra, Srivats Poddar, Jack Lu, Saining Xie},
+  year={2026},
+  journal={arXiv preprint arXiv:{{ARXIV_ID}}}
+}</code></pre>
+            </div>
+        </div>
+
+    </d-article>
+
+    <d-bibliography>
+        <script type="text/bibtex">
+        @article{matrixgame2,
+            title={Matrix-Game: Interactive World Foundation Model},
+            author={Zhang, Yifan and Peng, Chunli and Wang, Boyang and Wang, Puyi and Zhu, Qingcheng and Gao, Zedong and Li, Eric and Liu, Yang and Zhou, Yahui},
+            journal={arXiv preprint arXiv:2506.18701},
+            year={2025},
+        }
+        @article{selfforcing,
+            title={Self Forcing: Bridging the Train-Test Gap in Autoregressive Video Diffusion},
+            author={Huang, Xun and Li, Zhengqi and He, Guande and Zhou, Mingyuan and Shechtman, Eli},
+            journal={arXiv preprint arXiv:2506.08009},
+            year={2025},
+        }
+        @misc{enigma2025multiverse,
+            title={Introducing Multiverse: The First AI Multiplayer World Model},
+            author={Enigma-team},
+            year={2025},
+            howpublished = {Engima Blog},
+            url={https://enigma.inc/blog}
+        }
+        </script>
+    </d-bibliography>
+
+    </body>
+</html>

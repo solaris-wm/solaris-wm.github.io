@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500">
+  <rect width="1000" height="500" fill="#f7fafc"/>
+  <rect x="50" y="50" width="900" height="400" fill="#e2e8f0" stroke="#cbd5e0" stroke-width="2"/>
+  <text x="500" y="230" font-family="Arial, sans-serif" font-size="28" fill="#4a5568" text-anchor="middle">Figure 2 Placeholder</text>
+  <text x="500" y="270" font-family="Arial, sans-serif" font-size="16" fill="#718096" text-anchor="middle">Add your figure here</text>
+</svg>
