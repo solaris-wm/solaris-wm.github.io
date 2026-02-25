@@ -1758,6 +1758,7 @@ iframe {
 
 .gallery-item video {
   width: 100%;
+  aspect-ratio: 40/11;
   display: block;
   border-radius: 4px;
 }
