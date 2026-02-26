@@ -90,18 +90,29 @@ function createVideoControls(container, opts) {
         videos.forEach(function(v) { v.currentTime = time; });
     }
 
+    function setPlayingState(playing) {
+        playPauseBtn.textContent = playing ? ICON_PAUSE : ICON_PLAY;
+        playPauseBtn.title = playing ? 'Pause' : 'Play';
+        isPlaying = playing;
+    }
+
     function pauseAll() {
         videos.forEach(function(v) { v.pause(); });
-        playPauseBtn.textContent = ICON_PLAY;
-        playPauseBtn.title = 'Play';
-        isPlaying = false;
+        setPlayingState(false);
     }
 
     function playAll() {
         videos.forEach(function(v) { v.play(); });
-        playPauseBtn.textContent = ICON_PAUSE;
-        playPauseBtn.title = 'Pause';
-        isPlaying = true;
+        setPlayingState(true);
+    }
+
+    function stepByFrame(direction) {
+        var newTime = direction > 0
+            ? Math.min(duration, primary.currentTime + FRAME_DUR)
+            : Math.max(0, primary.currentTime - FRAME_DUR);
+        syncVideos(newTime);
+        updateTimeDisplay();
+        return newTime;
     }
 
     // --- Events ---
@@ -147,11 +158,7 @@ function createVideoControls(container, opts) {
             didHold = true;
             var stepMs = FRAME_DUR / SLOW_RATE * 1000;
             stepInterval = setInterval(function() {
-                var newTime = direction > 0
-                    ? Math.min(duration, primary.currentTime + FRAME_DUR)
-                    : Math.max(0, primary.currentTime - FRAME_DUR);
-                syncVideos(newTime);
-                updateTimeDisplay();
+                var newTime = stepByFrame(direction);
                 if (direction > 0 ? newTime >= duration : newTime <= 0) stopSlowPlay();
             }, stepMs);
         }
@@ -161,10 +168,7 @@ function createVideoControls(container, opts) {
             isPressed = false;
             if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
             if (stepInterval) { clearInterval(stepInterval); stepInterval = null; }
-            videos.forEach(function(v) { v.pause(); });
-            playPauseBtn.textContent = ICON_PLAY;
-            playPauseBtn.title = 'Play';
-            isPlaying = false;
+            pauseAll();
         }
 
         function onDown(e) {
@@ -173,11 +177,7 @@ function createVideoControls(container, opts) {
             didHold = false;
             pauseAll();
             // Immediate single step
-            var newTime = direction > 0
-                ? Math.min(duration, primary.currentTime + FRAME_DUR)
-                : Math.max(0, primary.currentTime - FRAME_DUR);
-            syncVideos(newTime);
-            updateTimeDisplay();
+            stepByFrame(direction);
             holdTimer = setTimeout(startSlowPlay, HOLD_DELAY);
         }
 
@@ -305,7 +305,13 @@ function createVideoControls(container, opts) {
         });
     }
 
-    return { container: container, bar: bar, videos: videos };
+    return {
+        container: container,
+        bar: bar,
+        videos: videos,
+        playAll: playAll,
+        pauseAll: pauseAll
+    };
 }
 
 // Auto-initialize all containers with data-video-controls
