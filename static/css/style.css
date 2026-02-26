@@ -286,7 +286,7 @@ body {
     margin-right: 0 !important;
   }
 
-  .uncurated-grid {
+  .video-gallery-grid {
     grid-template-columns: 1fr !important;
   }
 
@@ -1753,8 +1753,7 @@ iframe {
   margin: 1em 0;
 }
 
-.curated-grid,
-.uncurated-grid {
+.video-gallery-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;

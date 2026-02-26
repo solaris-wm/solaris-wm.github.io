@@ -54,7 +54,7 @@ function toggleQualitativeActions(checkbox, containerId) {
 }
 
 var uncuratedGallery=(function(){
-    var START=128,END=191,PER_PAGE=window.innerWidth<=767?4:8,page=0,annotated=false,
+    var START=128,END=191,PER_PAGE=window.innerWidth<=767?4:4,page=0,annotated=false,
         grid=document.getElementById('uncurated-grid'),
         pager=document.getElementById('uncurated-pager'),
         total=END-START+1,pages=Math.ceil(total/PER_PAGE);
