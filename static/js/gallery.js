@@ -13,6 +13,14 @@ function primeSectionVideos(sectionEl, controls) {
     sectionEl.querySelectorAll('video').forEach(safePlay);
 }
 
+function replaceVideoSources(sourceEls, replacer) {
+    sourceEls.forEach(function(src) {
+        var current = src.getAttribute('src');
+        src.setAttribute('src', replacer(current));
+        src.parentElement.load();
+    });
+}
+
 function swapCuratedSourcePath(currentPath, annotated, pairs) {
     for (var i = 0; i < pairs.length; i++) {
         var from = annotated ? pairs[i][0] : pairs[i][1];
@@ -27,6 +35,8 @@ function swapCuratedSourcePath(currentPath, annotated, pairs) {
 function toggleSection(bodyId, arrowId) {
     var b = document.getElementById(bodyId);
     var a = document.getElementById(arrowId);
+    if (!b || !a) return;
+
     var isHidden = getComputedStyle(b).display === 'none';
     if (!isHidden) {
         b.style.display = 'none';
@@ -50,28 +60,28 @@ function toggleSection(bodyId, arrowId) {
 }
 function toggleCuratedActions(checkbox, gridId) {
     var grid = document.getElementById(gridId);
+    if (!grid) return;
+
     var videos = grid.querySelectorAll('video source');
     var annotated = checkbox.checked;
     var pairs = [
         ['static/videos_test_split/uncurated_unannotated/', 'static/videos_test_split/uncurated_annotated/'],
         ['static/videos_eval_split/co_observation_unannotated/', 'static/videos_eval_split/co_observation_annotated/']
     ];
-    videos.forEach(function(src) {
-        var current = src.getAttribute('src');
-        src.setAttribute('src', swapCuratedSourcePath(current, annotated, pairs));
-        src.parentElement.load();
+    replaceVideoSources(videos, function(current) {
+        return swapCuratedSourcePath(current, annotated, pairs);
     });
 }
 function toggleQualitativeActions(checkbox, containerId) {
     var container = document.getElementById(containerId);
+    if (!container) return;
+
     var videos = container.querySelectorAll('video source');
     var annotated = checkbox.checked;
     var pattern = annotated ? /\.mp4$/ : /_annotations\.mp4$/;
     var replacement = annotated ? '_annotations.mp4' : '.mp4';
-    videos.forEach(function(src) {
-        var current = src.getAttribute('src');
-        src.setAttribute('src', current.replace(pattern, replacement));
-        src.parentElement.load();
+    replaceVideoSources(videos, function(current) {
+        return current.replace(pattern, replacement);
     });
 }
 
@@ -80,14 +90,6 @@ var uncuratedGallery=(function(){
         grid=document.getElementById('uncurated-grid'),
         pager=document.getElementById('uncurated-pager'),
         total=END-START+1,pages=Math.ceil(total/PER_PAGE);
-    var observer=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-            if(!e.isIntersecting)return;
-            var v=e.target,src=v.dataset.src;
-            if(src){var s=document.createElement('source');s.src=src;s.type='video/mp4';v.appendChild(s);v.load();delete v.dataset.src;}
-            observer.unobserve(v);
-        });
-    },{rootMargin:'200px'});
     function folder(){return annotated?'uncurated_annotated':'uncurated_unannotated'}
     var controlBar=null;
     function render(){
@@ -106,6 +108,11 @@ var uncuratedGallery=(function(){
         }
         var ctrl=createVideoControls(grid,{fps:20,autoplay:false});
         if(ctrl){grid._videoControls=ctrl;controlBar=ctrl.bar;}
+        var uncuratedBody = document.getElementById('uncurated-body');
+        var isVisible = uncuratedBody && getComputedStyle(uncuratedBody).display !== 'none';
+        if (isVisible) {
+            primeSectionVideos(grid, grid._videoControls);
+        }
         pager.innerHTML='';
         var prev=document.createElement('button');prev.textContent='← Prev';prev.disabled=page===0;
         prev.onclick=function(){page--;render()};

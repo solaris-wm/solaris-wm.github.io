@@ -90,6 +90,13 @@ function createVideoControls(container, opts) {
         videos.forEach(function(v) { v.currentTime = time; });
     }
 
+    function safePlay(video) {
+        var playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(function() {});
+        }
+    }
+
     function setPlayingState(playing) {
         playPauseBtn.textContent = playing ? ICON_PAUSE : ICON_PLAY;
         playPauseBtn.title = playing ? 'Pause' : 'Play';
@@ -102,7 +109,7 @@ function createVideoControls(container, opts) {
     }
 
     function playAll() {
-        videos.forEach(function(v) { v.play(); });
+        videos.forEach(safePlay);
         setPlayingState(true);
     }
 
@@ -201,18 +208,21 @@ function createVideoControls(container, opts) {
     setupStepButton(stepBackBtn, -1);
     setupStepButton(stepFwdBtn, 1);
 
+    var resumeAfterScrub = false;
     scrubber.addEventListener('input', function() {
-        isScrubbing = true;
-        var wasPlaying = isPlaying;
-        pauseAll();
+        if (!isScrubbing) {
+            resumeAfterScrub = isPlaying;
+            pauseAll();
+            isScrubbing = true;
+        }
         syncVideos((scrubber.value / 1000) * duration);
         updateTimeDisplay();
-        if (wasPlaying) isPlaying = true;
     });
 
     scrubber.addEventListener('change', function() {
         isScrubbing = false;
-        if (isPlaying) playAll();
+        if (resumeAfterScrub) playAll();
+        resumeAfterScrub = false;
     });
 
     // Manual looping (remove loop attr so reset works cleanly)
@@ -271,7 +281,7 @@ function createVideoControls(container, opts) {
                 // Once metadata is ready, seek and play
                 function initPopup() {
                     popupVideo.currentTime = currentTime;
-                    popupVideo.play();
+                    safePlay(popupVideo);
                     // Create controls — _isLightbox prevents nested lightbox handlers
                     createVideoControls(videoContainer, {
                         fps: FPS,
