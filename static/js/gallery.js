@@ -1,5 +1,5 @@
 var curatedControlBars = {};
-function toggleCuratedSection(bodyId, arrowId) {
+function toggleSection(bodyId, arrowId) {
     var b = document.getElementById(bodyId);
     var a = document.getElementById(arrowId);
     var isHidden = getComputedStyle(b).display === 'none';

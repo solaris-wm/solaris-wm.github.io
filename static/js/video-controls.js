@@ -139,33 +139,29 @@ function createVideoControls(container, opts) {
 
     function setupStepButton(btn, direction) {
         var holdTimer = null;
-        var reverseInterval = null;
+        var stepInterval = null;
         var didHold = false;
         var isPressed = false;
 
         function startSlowPlay() {
             didHold = true;
-            if (direction > 0) {
-                // Forward: use native playbackRate
-                videos.forEach(function(v) { v.playbackRate = SLOW_RATE; v.play(); });
-            } else {
-                // Reverse: no native support, simulate by stepping back at slow rate
-                var stepMs = FRAME_DUR / SLOW_RATE * 1000;
-                reverseInterval = setInterval(function() {
-                    var newTime = Math.max(0, primary.currentTime - FRAME_DUR);
-                    syncVideos(newTime);
-                    updateTimeDisplay();
-                    if (newTime <= 0) stopSlowPlay();
-                }, stepMs);
-            }
+            var stepMs = FRAME_DUR / SLOW_RATE * 1000;
+            stepInterval = setInterval(function() {
+                var newTime = direction > 0
+                    ? Math.min(duration, primary.currentTime + FRAME_DUR)
+                    : Math.max(0, primary.currentTime - FRAME_DUR);
+                syncVideos(newTime);
+                updateTimeDisplay();
+                if (direction > 0 ? newTime >= duration : newTime <= 0) stopSlowPlay();
+            }, stepMs);
         }
 
         function stopSlowPlay() {
             if (!isPressed) return;
             isPressed = false;
             if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
-            if (reverseInterval) { clearInterval(reverseInterval); reverseInterval = null; }
-            videos.forEach(function(v) { v.pause(); v.playbackRate = 1; });
+            if (stepInterval) { clearInterval(stepInterval); stepInterval = null; }
+            videos.forEach(function(v) { v.pause(); });
             playPauseBtn.textContent = ICON_PLAY;
             playPauseBtn.title = 'Play';
             isPlaying = false;

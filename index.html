@@ -744,7 +744,7 @@ in the <a href="#capabilities-showcase">Solaris Model Capabilities</a> section b
             </p>
 
             <!-- Subsection: Joint World State -->
-            <div class="text curated-header" onclick="toggleCuratedSection('curated-body-0','curated-arrow-0')">
+            <div class="text curated-header" onclick="toggleSection('curated-body-0','curated-arrow-0')">
             <h3><span id="curated-arrow-0" class="toggle-arrow">▶</span> Emergent: Joint World State</h3>
             <label onclick="event.stopPropagation()">
                 <input type="checkbox" onchange="toggleCuratedActions(this, 'curated-grid-0')">
@@ -762,7 +762,7 @@ in the <a href="#capabilities-showcase">Solaris Model Capabilities</a> section b
         </div>
 
         <!-- Subsection: Emergent: Joint Visual Generation -->
-        <div class="text curated-header" onclick="toggleCuratedSection('curated-body-1','curated-arrow-1')">
+        <div class="text curated-header" onclick="toggleSection('curated-body-1','curated-arrow-1')">
             <h3><span id="curated-arrow-1" class="toggle-arrow">▶</span> Emergent: Co-observation Consistency</h3>
             <label onclick="event.stopPropagation()">
                 <input type="checkbox" onchange="toggleCuratedActions(this, 'curated-grid-1')">
@@ -779,7 +779,7 @@ in the <a href="#capabilities-showcase">Solaris Model Capabilities</a> section b
         </div>
 
         <!-- Subsection: Mining -->
-        <div class="text curated-header" onclick="toggleCuratedSection('curated-body-2','curated-arrow-2')">
+        <div class="text curated-header" onclick="toggleSection('curated-body-2','curated-arrow-2')">
             <h3><span id="curated-arrow-2" class="toggle-arrow">▶</span> Mining</h3>
             <label onclick="event.stopPropagation()">
                 <input type="checkbox" onchange="toggleCuratedActions(this, 'curated-grid-2')">
@@ -794,7 +794,7 @@ in the <a href="#capabilities-showcase">Solaris Model Capabilities</a> section b
         </div>
 
         <!-- Subsection: Building -->
-        <div class="text curated-header" onclick="toggleCuratedSection('curated-body-3','curated-arrow-3')">
+        <div class="text curated-header" onclick="toggleSection('curated-body-3','curated-arrow-3')">
             <h3><span id="curated-arrow-3" class="toggle-arrow">▶</span> Building</h3>
             <label onclick="event.stopPropagation()">
                 <input type="checkbox" onchange="toggleCuratedActions(this, 'curated-grid-3')">
@@ -809,7 +809,7 @@ in the <a href="#capabilities-showcase">Solaris Model Capabilities</a> section b
         </div>
 
         <!-- Subsection: Combat -->
-        <div class="text curated-header" onclick="toggleCuratedSection('curated-body-4','curated-arrow-4')">
+        <div class="text curated-header" onclick="toggleSection('curated-body-4','curated-arrow-4')">
             <h3><span id="curated-arrow-4" class="toggle-arrow">▶</span> Combat</h3>
             <label onclick="event.stopPropagation()">
                 <input type="checkbox" onchange="toggleCuratedActions(this, 'curated-grid-4')">
@@ -824,7 +824,7 @@ in the <a href="#capabilities-showcase">Solaris Model Capabilities</a> section b
         </div>
 
         <!-- Subsection: Movement -->
-        <div class="text curated-header" onclick="toggleCuratedSection('curated-body-5','curated-arrow-5')">
+        <div class="text curated-header" onclick="toggleSection('curated-body-5','curated-arrow-5')">
             <h3><span id="curated-arrow-5" class="toggle-arrow">▶</span> Movement</h3>
             <label onclick="event.stopPropagation()">
                 <input type="checkbox" onchange="toggleCuratedActions(this, 'curated-grid-5')">
@@ -841,7 +841,7 @@ in the <a href="#capabilities-showcase">Solaris Model Capabilities</a> section b
         <!-- <h2 class="text">Failure Cases</h2> -->
 
 
-        <div class="text curated-header" onclick="var b=document.getElementById('uncurated-body'),a=document.getElementById('uncurated-arrow');if(getComputedStyle(b).display==='none'){b.style.display='block';a.classList.add('expanded')}else{b.style.display='none';a.classList.remove('expanded')}">
+        <div class="text curated-header" onclick="toggleSection('uncurated-body','uncurated-arrow')">
             <h2><span id="uncurated-arrow" class="toggle-arrow">▶</span> Uncurated Generations</h2>
             <label onclick="event.stopPropagation()">
                 <input type="checkbox" id="uncurated-actions-toggle" onchange="uncuratedGallery.toggleActions(this.checked)">
