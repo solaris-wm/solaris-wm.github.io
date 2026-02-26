@@ -1,3 +1,12 @@
+:root {
+  color-scheme: only light;
+}
+
+html, body {
+  background: #ffffff;
+  color: #111111;
+}
+
 body {
   font-family: Charter;
 }
